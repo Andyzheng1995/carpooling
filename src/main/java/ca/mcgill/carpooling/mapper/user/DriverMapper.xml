@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ca.mcgill.carpooling.mapper.user.DriverMapper">
+	<!-- Noted that we have a base resultmap in this xml file. This is because of the final goal of 
+	ssm framework -> unbinding of persistence and model layers! -->
+	
+	<resultMap type="BaseResultMap" id="ca.mcgill.carpooling.model.user.Driver">
+		<!-- uuid generator -->
+		<id column="id" jdbcType="CHAR" property="id"/>
+		<result column="name" jdbcType="VARCHAR" property="name"/>
+		<result column="phone" jdbcType="VARCHAR" property="phone"/>
+		<!-- MD5 encoding -->
+		<result column="pwd" jdbcType="CHAR" property="pwd"/>
+		<result column="licence_no" jdbcType="VARCHAR" property="licence_no"/>
+		<result column="sex" jdbcType="VARCHAR" property="sex"/>
+		<result column="age" jdbcType="VARCHAR" property="age"/>
+		<result column="score" jdbcType="INTEGER" property="score"/>
+		<result column="total_no" jdbcType="INTEGER" property="total_no"/>
+	</resultMap>
+	
+	<insert id="insertDriver">
+		insert into
+		<trim prefix ="driver_tbl(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="phone != null">
+				phone,
+			</if>
+			<if test="pwd != null">
+				pwd,
+			</if>
+			<if test="licence_no != null">
+				licence_no,
+			</if>
+			<if test="age != null">
+				age,
+			</if>
+			<if test="sex != null">
+				sex,
+			</if>
+			<!-- Here, don't thinks I'm dumb. I do score and total_no just for generalization of the method. -->
+			<if test="score != null">
+				score,
+			</if>
+			<if test="total_no != null">
+				total_no,
+			</if>
+		</trim>
+		<trim prefix="values(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="name != null">
+				#{name},
+			</if>
+			<if test="phone != null">
+				#{phone},
+			</if>
+			<if test="pwd != null">
+				#{pwd},
+			</if>
+			<if test="licence_no != null">
+				#{licence_no},
+			</if>
+			<if test="age != null">
+				#{age},
+			</if>
+			<if test="sex != null">
+				#{sex},
+			</if>
+			<if test="score != null">
+				#{score},
+			</if>
+			<if test="total_no != null">
+				#{total_no},
+			</if>
+		</trim>		
+	</insert>
+	
+</mapper>
+
+

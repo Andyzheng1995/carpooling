@@ -166,7 +166,7 @@
 	</dependencies>
 
 	<build>
-        <finalName>carpooling_01</finalName>
+        <finalName>carpooling</finalName>
         
         <plugins>
         

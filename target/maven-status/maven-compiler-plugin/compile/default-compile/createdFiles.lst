@@ -1,0 +1,6 @@
+ca/mcgill/carpooling/model/City.class
+ca/mcgill/carpooling/model/login/passenger.class
+ca/mcgill/carpooling/model/stop.class
+ca/mcgill/carpooling/model/login/driver.class
+ca/mcgill/carpooling/model/trip.class
+ca/mcgill/carpooling/model/Booking.class
