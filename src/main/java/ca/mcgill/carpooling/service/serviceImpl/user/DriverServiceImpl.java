@@ -20,38 +20,29 @@ public class DriverServiceImpl implements DriverService{
 	
 	
 	@Override
-	public ResultObject addDriver(Map<String, Object> paramMap) {
+	public ResultObject addDriver(Driver driver) {
 		ResultObject resultObject = new ResultObject();
 		resultObject.setErrorCode(1);
 		resultObject.setErrorMsg("Registeration success!");
 		
 		String id = UUID.randomUUID().toString().replaceAll("-", "");
-		String name = (String) paramMap.get("name");
-		String phone = (String) paramMap.get("phone");
+		String name = driver.getName();
+		String phone = driver.getPhone();
 		String pwd = "";
-		String licence_no = (String) paramMap.get("licence_no");
+		String licence_no = driver.getLicence_no();
 		try {
-			pwd = MD5Util.getMD5Str((String) paramMap.get("pwd"));
+			pwd = MD5Util.getMD5Str(driver.getPwd());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		String age = (String) paramMap.get("age");
-		String sex = (String) paramMap.get("sex");
-		
-		Driver driver = new Driver();
+		String age = driver.getAge();
+		String sex = driver.getSex();
 		
 		if (name == null || phone == null || pwd == "" || licence_no == "null" || age == "null" || sex == "null") {
 			resultObject.setErrorCode(0);
 			resultObject.setErrorMsg("Information not complete!");
 		} else {
-			driver.setId(id);
-			driver.setName(name);
-			driver.setPhone(phone);
-			driver.setLicence_no(licence_no);
-			driver.setPwd(pwd);
-			driver.setAge(age);
-			driver.setSex(sex);
 			int errorCode = driverMapper.insertDriver(driver);
 			String errorMsg = "";
 			if (errorCode == 0) {

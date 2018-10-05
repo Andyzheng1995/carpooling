@@ -15,9 +15,9 @@
 		http://www.springframework.org/schema/tx/spring-tx.xsd
 		http://www.springframework.org/schema/aop
 		http://www.springframework.org/schema/aop/spring-aop.xsd">
-	<!-- 配置数据库连接，阿里数据源druid连接池 -->
+	<!-- Connection pool from alibaba druid -->
 	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
-		<property name="url" value="jdbc:mysql://127.0.0.1:5432/carpooling_1?useSSL=false&amp;useUnicode=true&amp;characterEncoding=UTF-8" />
+		<property name="url" value="jdbc:postgresql://127.0.0.1:5432/carpoolingdb?useSSL=false&amp;useUnicode=true&amp;characterEncoding=UTF-8" />
 		<property name="driverClassName" value="org.postgresql.Driver"/>
 		<property name="username" value="postgres" />
 		<property name="password" value="123456" />
@@ -41,7 +41,7 @@
 	</bean>
 	<!-- scan for mappers and let them be autowired -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.bjpowernode.p2p.mapper" />
+		<property name="basePackage" value="com.bjpowernode.carpooling.mapper" />
 		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
 	</bean>
 	<!-- 事务相关控制 -->
@@ -62,7 +62,7 @@
 	</tx:advice>
 	<!-- Service层事务控制 -->
 	<aop:config>
-		<aop:pointcut id="pointcut" expression="execution(* com.bjpowernode.p2p.service.**.*.*(..))" />
+		<aop:pointcut id="pointcut" expression="execution(* com.bjpowernode.carpooling.service.**.*.*(..))" />
 		<aop:advisor pointcut-ref="pointcut" advice-ref="txAdvice" />
 	</aop:config>
 </beans>

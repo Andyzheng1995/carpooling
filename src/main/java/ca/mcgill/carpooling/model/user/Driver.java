@@ -9,6 +9,7 @@ public class Driver {
 	private String licence_no;
 	private String age;
 	private String sex;
+	//default 5， change to float
 	private int score;
 	private int total_no;
 	

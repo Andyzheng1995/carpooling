@@ -1,15 +1,18 @@
 package ca.mcgill.carpooling.model.carpooling;
 
+import java.util.UUID;
+
 public class Stop {
 	private String id;
 	private String city_id;
 	private String trip_id;
+	//booking_id 删除
 	private String booking_id;
 	private int seq_no;
 	private float cost;
 	private int seats;
 	private String time;
-	
+
 	public String getId() {
 		return id;
 	}
