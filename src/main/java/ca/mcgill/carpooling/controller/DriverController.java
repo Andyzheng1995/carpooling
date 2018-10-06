@@ -21,17 +21,16 @@ import ca.mcgill.carpooling.service.user.DriverService;
 import ca.mcgill.carpooling.utils.MD5Util;
 
 @Controller
-@RequestMapping(value="/user")
 public class DriverController {
 	
 	@Autowired
 	private DriverService driverService;
 	
-	@RequestMapping(value="/login")
+	@RequestMapping(value="/user/login")
 	public @ResponseBody Object login(HttpServletRequest request,
-			@RequestParam (value="phone",required=true) String phone,
-			@RequestParam (value="pwd",required=true) String pwd,
-			@RequestParam (value="role",required=true) String role) {
+			@RequestParam (value="phone",required=false) String phone,
+			@RequestParam (value="pwd",required=false) String pwd,
+			@RequestParam (value="role",required=false) String role) {
 		
 		Map<String,Object> retMap = new ConcurrentHashMap<String,Object>();
 
