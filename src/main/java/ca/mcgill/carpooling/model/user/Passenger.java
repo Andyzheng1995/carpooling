@@ -7,7 +7,7 @@ public class Passenger {
 	private String pwd;
 	private String age;
 	private String sex;
-	private int score;
+	private float score;
 	private int total_no;
 	public String getId() {
 		return id;

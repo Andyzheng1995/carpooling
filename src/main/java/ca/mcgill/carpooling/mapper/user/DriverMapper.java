@@ -6,4 +6,5 @@ public interface DriverMapper {
 		
 	int insertDriver(Driver driver);
 
+	Driver selectDriverByPhone (String phone);
 }

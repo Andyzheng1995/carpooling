@@ -39,10 +39,16 @@ public class DriverServiceImpl implements DriverService{
 		String age = driver.getAge();
 		String sex = driver.getSex();
 		
-		if (name == null || phone == null || pwd == "" || licence_no == "null" || age == "null" || sex == "null") {
+		if (name == null || phone == null || pwd == "" || licence_no == null || age == null || sex == null) {
 			resultObject.setErrorCode(0);
 			resultObject.setErrorMsg("Information not complete!");
 		} else {
+			driver.setId(id);
+			driver.setPwd(pwd);
+			driver.setScore(5.0);
+			driver.setTotal_no(0);
+			Driver driver2 = driverMapper.selectDriverByPhone(phone);
+			
 			int errorCode = driverMapper.insertDriver(driver);
 			String errorMsg = "";
 			if (errorCode == 0) {
@@ -55,6 +61,12 @@ public class DriverServiceImpl implements DriverService{
 		}
 		
 		return resultObject;
+	}
+
+
+	@Override
+	public Driver queryDriverByPhone(String phone) {
+		return driverMapper.selectDriverByPhone(phone);
 	}
 	
 }

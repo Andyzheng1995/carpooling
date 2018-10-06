@@ -9,8 +9,7 @@ public class Driver {
 	private String licence_no;
 	private String age;
 	private String sex;
-	//default 5， change to float
-	private int score;
+	private double score;
 	private int total_no;
 	
 	public String getId() {
@@ -49,10 +48,10 @@ public class Driver {
 	public void setSex(String sex) {
 		this.sex = sex;
 	}
-	public int getScore() {
+	public double getScore() {
 		return score;
 	}
-	public void setScore(int score) {
+	public void setScore(double score) {
 		this.score = score;
 	}
 	public int getTotal_no() {

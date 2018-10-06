@@ -82,6 +82,10 @@
 		</trim>		
 	</insert>
 	
+	<select id="selectDriverByPhone" resultMap="BaseResultMap">
+		select * from driver_tbl where phone = #{phone};
+	</select>
+	
 </mapper>
 
 

@@ -14,57 +14,72 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.bjpowernode.p2p.common.constant.Constants;
-
 import ca.mcgill.carpooling.model.user.Driver;
+import ca.mcgill.carpooling.model.user.Passenger;
 import ca.mcgill.carpooling.model.vo.ResultObject;
 import ca.mcgill.carpooling.service.user.DriverService;
+import ca.mcgill.carpooling.utils.MD5Util;
 
 @Controller
+@RequestMapping(value="/user")
 public class DriverController {
 	
 	@Autowired
 	private DriverService driverService;
 	
-//	@RequestMapping(value="/driver/login")
-//	public @ResponseBody Object login(HttpServletRequest request,
-//			@RequestParam (value="phone",required=true) String phone,
-//			@RequestParam (value="pwd",required=true) String pwd) {
-//		
-//		Map<String,Object> retMap = new ConcurrentHashMap<String,Object>();
-//		//后台再次对接收到的参数进行验证
-//		if(StringUtils.isEmpty(phone)) {
-//			retMap.put("errorMessage", "Please enter phone number.");
-//			return retMap;
-//		}
-//		
-//		if(!Pattern.matches("^1[1-9]\\d{9}$", phone)) {
-//			retMap.put("errorMessage", "Please enter valid phone number.");
-//			return retMap;
-//		}
-//		
-//		if(StringUtils.isEmpty(pwd)) {
-//			retMap.put("errorMessage", "Please enter password.");
-//			return retMap;
-//		}
-//		
-//		//------------------login-------------------
-//		Driver driver = new Driver();
-//		driver.setPhone(phone);
-//		driver.setPwd(pwd);
-//		Driver sessionDriver = driverService.login(driver);
-//		//check if the driver information in in database.
-//		if(null == sessionDriver) {
-//			//Failed
-//			retMap.put("errorMessage", "Incorrect username or password.");
-//			return retMap;
-//		}
-//		
-//		//Successed
-//		retMap.put("errorMessage", "ok");
-//		
-//		return retMap;
-//	}
+	@RequestMapping(value="/login")
+	public @ResponseBody Object login(HttpServletRequest request,
+			@RequestParam (value="phone",required=true) String phone,
+			@RequestParam (value="pwd",required=true) String pwd,
+			@RequestParam (value="role",required=true) String role) {
+		
+		Map<String,Object> retMap = new ConcurrentHashMap<String,Object>();
+
+		if(StringUtils.isEmpty(phone)) {
+			retMap.put("errorMessage", "Please enter phone number.");
+			return retMap;
+		}
+		
+		if(!Pattern.matches("^1[1-9]\\d{9}$", phone)) {
+			retMap.put("errorMessage", "Please enter valid phone number.");
+			return retMap;
+		}
+		
+		if(StringUtils.isEmpty(pwd)) {
+			retMap.put("errorMessage", "Please enter password.");
+			return retMap;
+		}
+		
+		if (StringUtils.isEmpty(role)) {
+			retMap.put("errorMessage", "Please select role.");
+		}
+		
+		//------------------login-------------------
+		if ("0".equals(role)) {
+			//admin
+			return retMap;
+		} else if ("1".equals(role)) {
+			Driver driver = driverService.queryDriverByPhone(phone);
+			if (driver != null) {
+				try {
+					if (driver.getPwd().equals(MD5Util.getMD5Str(pwd))){
+						retMap.put("errorMessage","Successully login.");
+						return retMap;
+					}
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} 
+			} else {
+				retMap.put("errorMessage","Invalid phone number or password.");
+				return retMap;
+			}
+		} else if ("2".equals(role)) {
+			//passenger
+			return retMap;
+		}
+		return retMap;
+	}
 //  The idea of "method" is to limit request access to ajax and html form submit
 	@RequestMapping(value="/driver/register", method=RequestMethod.POST)
 	public @ResponseBody Object register (HttpServletRequest request,
@@ -129,9 +144,13 @@ public class DriverController {
 		
 		ResultObject resultObject = driverService.addDriver(driver);
 		
-		if (1==resultObject.getErrorCode()) {
-			
-			
+		if (resultObject.getErrorCode()==1) {
+			retMap.put("errorMessage", "Successfully create a driver");
+			return retMap;
+		}
+		else {
+			retMap.put("errorMessage", "Request failed");
+			return retMap;
 		}
 	}
 }

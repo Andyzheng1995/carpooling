@@ -6,6 +6,11 @@
 
 	<!-- 应用名 -->
 	<display-name>carpooling</display-name>
+	<!-- spring监听器加载applicationContext.xml配置文件 --> 
+	<context-param> 
+	  <param-name>contextConfigLocation</param-name> 
+	  <param-value>classpath:applicationContext.xml</param-value> 
+	</context-param>
 	<!-- 字符过滤器，字符编码UTF-8 -->
 	<filter>
 		<filter-name>encodingFilter</filter-name>
@@ -29,4 +34,12 @@
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
+		<servlet-mapping>
+		<servlet-name>dispatcher</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>dispatcher</servlet-name>
+		<url-pattern>/index</url-pattern>
+	</servlet-mapping>
 </web-app>

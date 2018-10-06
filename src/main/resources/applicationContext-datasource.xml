@@ -34,14 +34,16 @@
 		<property name="poolPreparedStatements" value="true" />
 		<property name="maxOpenPreparedStatements" value="20" />
 	</bean>
-	<!-- MyBatis sqlSessionFactory 配置 mybatis -->
+	
+	<!-- MyBatis sqlSessionFactory -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="configLocation" value="classpath:mybatis-configuration.xml" />
 		<property name="dataSource" ref="dataSource" />
 	</bean>
+	
 	<!-- scan for mappers and let them be autowired -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.bjpowernode.carpooling.mapper" />
+		<property name="basePackage" value="ca.mcgill.carpooling.mapper" />
 		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
 	</bean>
 	<!-- 事务相关控制 -->
@@ -62,7 +64,7 @@
 	</tx:advice>
 	<!-- Service层事务控制 -->
 	<aop:config>
-		<aop:pointcut id="pointcut" expression="execution(* com.bjpowernode.carpooling.service.**.*.*(..))" />
+		<aop:pointcut id="pointcut" expression="execution(* ca.mcgill.carpooling.service.**.*.*(..))" />
 		<aop:advisor pointcut-ref="pointcut" advice-ref="txAdvice" />
 	</aop:config>
 </beans>

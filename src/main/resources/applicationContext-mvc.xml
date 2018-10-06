@@ -20,9 +20,9 @@
 		http://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/util
 		http://www.springframework.org/schema/util/spring-util.xsd">
-	<!-- dispatcherServlet截获所有URL请求 -->
+	<!-- dispatcherServlet capture all the URL requests -->
 	<mvc:default-servlet-handler />
-	<!-- spring mvc 扫描包下的controller -->
+	<!-- spring mvc scan all the controllers under certain package -->
 	<context:component-scan base-package="ca.mcgill.carpooling.controller"/>
 	<!-- 配置注解驱动 -->
 	<mvc:annotation-driven/>
